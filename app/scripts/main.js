@@ -27,33 +27,34 @@
     svgImg.addEventListener('load', function(event) { svgHandelLoad(event) }, false);
 
     let svgHandelLoad = function(event) {
-            svgObj = event.currentTarget;
 
-            svgDoc = svgObj.getSVGDocument();
-            svgLoaded = svgDoc.childNodes[0];
-            svgObj.parentNode.replaceChild(svgLoaded, svgObj);
-            svgNodes = svgLoaded.childNodes;
+        svgObj = event.currentTarget;
 
-            /***************** click events *****************/
-            // attach event to every node and return a function
-            for (let i = 0; i < svgNodes.length; i++) {
-                // set event listener on each node element
-                svgNodes[i].addEventListener("click", function() { svgNodeClicker(i, svgNodes[i]) }, false);
-            }
+        svgDoc = svgObj.getSVGDocument();
+        svgLoaded = svgDoc.childNodes[0];
+        svgObj.parentNode.replaceChild(svgLoaded, svgObj);
+        svgNodes = svgLoaded.childNodes;
 
-            let svgTexts = svgLoaded.getElementsByTagName("text");
-
-            for (var i = 0; i < svgTexts.length; i++) {
-                textEditable(svgTexts[i]);
-            }
-
-            // attach event to click to add text function
-            //svgLoaded.addEventListener("click", function(event){ addText(event, svgLoaded) }, false);
-
-
+        /***************** click events *****************/
+        // attach event to every node and return a function
+        for (let i = 0; i < svgNodes.length; i++) {
+            // set event listener on each node element
+            svgNodes[i].addEventListener("click", function() { svgNodeClicker(i, svgNodes[i]) }, false);
         }
-        /*************** svgNodeClicker ***************/
-        // function called from click events to get the clicked node
+
+        let svgTexts = svgLoaded.getElementsByTagName("text");
+
+        for (var i = 0; i < svgTexts.length; i++) {
+            textEditable(svgTexts[i]);
+        }
+
+        // attach event to click to add text function
+        //svgLoaded.addEventListener("click", function(event){ addText(event, svgLoaded) }, false);
+
+
+    }
+    /*************** svgNodeClicker ***************/
+    // function called from click events to get the clicked node
     let svgNodeClicker = (i, svgNode) => {
 
         // set the input placeholder with the same value of the node text
@@ -108,10 +109,10 @@
         textdiv.classList.add("insideforeign"); //to make div fit text
 
         // font properties
-        textdiv.setAttribute("font-size", fontSize);
-        textdiv.setAttribute("font-family", fontFamily);
-        textdiv.setAttribute("font-weight", fontWeight);
-        textdiv.setAttribute("fill", fillColor);
+        myforeign.setAttributeNS(null, "font-size", fontSize);
+        myforeign.setAttributeNS(null, "font-family", fontFamily);
+        myforeign.setAttributeNS(null, "font-weight", fontWeight);
+        myforeign.setAttributeNS(null, "style", "color:" + fillColor);
 
 
 
@@ -147,7 +148,7 @@
                 node.setAttribute('text-anchor', 'middle');
             }
         }
-        /***************** show text form  *****************/
+    /***************** show text form  *****************/
     let showInputForm = (position, width) => {
         // show // add classes
         inputForm.className += ' animated fadeIn';
