@@ -70,8 +70,7 @@
 
     let textEditable = (element) => {
         // text attributes
-        let coord = element.getBoundingClientRect();
-        let bBox = element.getBBox();
+        let bBox = element.getBBox(); // get coordinates
         let matrix = element.getCTM(); // a,b,c,d,e,f
         let fontFamily = element.getAttribute('font-family');
         let fontSize = element.getAttribute('font-size');
@@ -85,7 +84,6 @@
         let textnode = document.createTextNode(element.innerHTML);
 
 
-        console.log( bBox );
 
 
         textdiv.appendChild(textnode);
@@ -98,7 +96,7 @@
 
 
 
-        myforeign.setAttribute("width", bBox.width  ); // set width
+        myforeign.setAttribute("width", bBox.width); // set width
         myforeign.setAttribute("height", bBox.height ); // set width
 
         textdiv.classList.add("insideforeign"); //to make div fit text
@@ -114,9 +112,6 @@
         myforeign.classList.add("foreign"); //to make div fit text
         //textdiv.addEventListener("mousedown", elementMousedown, false);
         myforeign.setAttributeNS(null, "transform", transform);
-
-        //myforeign.setAttributeNS(null, "transform", "translate(" + coord.left / 4 + " " + coord.top + ")");
-        //myforeign.setAttributeNS(null, "transform", "translate(" + bBox.y + " " + bBox.x + ")");
 
         myforeign.setAttributeNS(null, "y", bBox.y);
         myforeign.setAttributeNS(null, "x", bBox.x);
