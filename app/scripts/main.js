@@ -1,12 +1,4 @@
 (function() {
-
-    /***************** load web fonts *****************/
-    WebFont.load({
-        google: {
-            families: ['Oswald:300', 'Great Vibes', 'Open Sans:800']
-        }
-    });
-
     /***************** variables *****************/
     let svgNodes;
     let svgObj;
@@ -42,15 +34,10 @@
             svgNodes[i].addEventListener("click", function() { svgNodeClicker(i, svgNodes[i]) }, false);
         }
 
-        let svgTexts = svgLoaded.getElementsByTagName("text");
 
-        for (var i = 0; i < svgTexts.length; i++) {
-            textEditable(svgTexts[i]);
-        }
 
         // attach event to click to add text function
         //svgLoaded.addEventListener("click", function(event){ addText(event, svgLoaded) }, false);
-
 
     }
     /*************** svgNodeClicker ***************/
@@ -84,12 +71,13 @@
     let textEditable = (element) => {
         // text attributes
         let coord = element.getBoundingClientRect();
+        let bBox = element.getBBox();
+        let matrix = element.getCTM(); // a,b,c,d,e,f
         let fontFamily = element.getAttribute('font-family');
         let fontSize = element.getAttribute('font-size');
         let fontWeight = element.getAttribute('font-weight');
         let fillColor = element.getAttribute('fill');
         let transform = element.getAttribute('transform');
-
 
         // node creating
         let myforeign = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')
@@ -97,6 +85,7 @@
         let textnode = document.createTextNode(element.innerHTML);
 
 
+        console.log( bBox );
 
 
         textdiv.appendChild(textnode);
@@ -105,14 +94,20 @@
         // set Attribute to text
         textdiv.setAttribute("contentEditable", "true");
         textdiv.setAttribute("width", "auto");
-        myforeign.setAttribute("width", Math.round(coord.width));
+
+
+
+
+        myforeign.setAttribute("width", bBox.width  ); // set width
+        myforeign.setAttribute("height", bBox.height ); // set width
+
         textdiv.classList.add("insideforeign"); //to make div fit text
 
         // font properties
         myforeign.setAttributeNS(null, "font-size", fontSize);
         myforeign.setAttributeNS(null, "font-family", fontFamily);
         myforeign.setAttributeNS(null, "font-weight", fontWeight);
-        myforeign.setAttributeNS(null, "style", "color:" + fillColor);
+        if (fillColor) myforeign.setAttributeNS(null, "style", "color:" + fillColor);
 
 
 
@@ -120,8 +115,17 @@
         //textdiv.addEventListener("mousedown", elementMousedown, false);
         myforeign.setAttributeNS(null, "transform", transform);
 
+        //myforeign.setAttributeNS(null, "transform", "translate(" + coord.left / 4 + " " + coord.top + ")");
+        //myforeign.setAttributeNS(null, "transform", "translate(" + bBox.y + " " + bBox.x + ")");
+
+        myforeign.setAttributeNS(null, "y", bBox.y);
+        myforeign.setAttributeNS(null, "x", bBox.x);
+
+
+
         element.parentNode.replaceChild(myforeign, element);
         myforeign.appendChild(textdiv);
+
 
     }
 
@@ -212,11 +216,6 @@
     }
 
 
-
-
-
-
-
     /***************** submission *****************/
     // listen to form submit
     inputForm.addEventListener("submit", function(event) { inputSubmit(event) }, false);
@@ -251,4 +250,19 @@
             if (callNow) func.apply(context, args);
         };
     };
+
+    /***************** load web fonts *****************/
+    WebFont.load({
+        google: {
+            families: ['Oswald:300', 'Great Vibes', 'Open Sans:800']
+        },
+        active : function( ){
+            // font loaded and rendered
+            let svgTexts = svgLoaded.getElementsByTagName("text");
+
+            for (var i = 0; i < svgTexts.length; i++) {
+                textEditable(svgTexts[i]);
+            }
+        }
+    });
 })();
