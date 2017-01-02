@@ -119,7 +119,7 @@
         //textdiv.addEventListener("mousedown", elementMousedown, false);
         myforeign.setAttributeNS(null, "transform", transform);
 
-        element.parentNode.replaceChild(myforeign, svgTexts[i]);
+        element.parentNode.replaceChild(myforeign, element);
         myforeign.appendChild(textdiv);
 
     }
