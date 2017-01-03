@@ -51,7 +51,6 @@
         //    return inputArray.indexOf(item) == index;
         // });
 
-        console.log( fontsArray );
 
         // attach event to click to add text function
         //svgLoaded.addEventListener("click", function(event){ addText(event, svgLoaded) }, false);
@@ -147,11 +146,17 @@
        let fontFamilyStr = fontFamily.replace(/'/g, "");
        let fontWeight = element.getAttribute('font-weight');
 
-      checkInArray(fontsArray, fontFamilyStr, fontWeight);
+
+       checkInArray(fontsArray, i,fontFamilyStr, fontWeight);
     }
 
+
+    let fontObjArr = [];
+
+    let weightsArr = [];
+
     /***************** check in array *****************/
-    let checkInArray = ( arr, fontFamilyStr, fontWeight ) => {
+    let checkInArray = ( arr, i, fontFamilyStr, fontWeight ) => {
       // check if fontWeight is not defined
       if( fontWeight == null ){
         // check if element isn't in the array push the element
@@ -165,6 +170,9 @@
         if ( arr.indexOf(fontFamilyStr+':'+fontWeight) === -1 ) arr.push(fontFamilyStr+':'+fontWeight)
       }
     }
+
+
+
 
 
 
