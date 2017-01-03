@@ -7,6 +7,11 @@
     let textEditState; // is for the curring function of textEdit, first assignment svgNodeClicker, last assignment input submit
     let textCenterState; // is for the curring function of textCenter, first assignment svgNodeClicker, last assignment input submit
 
+    let svgTexts; // SVG texts elements
+
+    let fontsArray = []; // array to hold fonts names
+
+
 
     /***************** DOM elements *****************/
     let inputForm = document.getElementById("text-editor");
@@ -21,11 +26,14 @@
     let svgHandelLoad = function(event) {
 
         svgObj = event.currentTarget;
-
         svgDoc = svgObj.getSVGDocument();
         svgLoaded = svgDoc.childNodes[0];
         svgObj.parentNode.replaceChild(svgLoaded, svgObj);
         svgNodes = svgLoaded.childNodes;
+
+        // for texts
+        svgTexts = svgLoaded.getElementsByTagName("text");
+
 
         /***************** click events *****************/
         // attach event to every node and return a function
@@ -34,7 +42,16 @@
             svgNodes[i].addEventListener("click", function() { svgNodeClicker(i, svgNodes[i]) }, false);
         }
 
+        for (let i = 0; i < svgTexts.length; i++) {
+            getFontsProperties(svgTexts[i], i);
+            textEditable(svgTexts[i]);
+        }
 
+        // fontsArray = fontsArray.filter( ( item, index, inputArray ) => {
+        //    return inputArray.indexOf(item) == index;
+        // });
+
+        console.log( fontsArray );
 
         // attach event to click to add text function
         //svgLoaded.addEventListener("click", function(event){ addText(event, svgLoaded) }, false);
@@ -67,7 +84,8 @@
     }
 
     /***************** text editable *****************/
-
+    // get every text tag in the SVG and wrap it with foreignObject
+    // to add the ability to make text editable
     let textEditable = (element) => {
         // text attributes
         let bBox = element.getBBox(); // get coordinates
@@ -120,9 +138,33 @@
 
         element.parentNode.replaceChild(myforeign, element);
         myforeign.appendChild(textdiv);
+    }
 
+    /***************** fonts name *****************/
+    let getFontsProperties = (element, i) => {
+       let fontFamily = element.getAttribute('font-family');
+       // remove single quote from the font name
+       let fontFamilyStr = fontFamily.replace(/'/g, "");
+       let fontWeight = element.getAttribute('font-weight');
+
+      checkInArray(fontsArray, fontFamilyStr, fontWeight);
+    }
+
+    /***************** check in array *****************/
+    let checkInArray = ( arr, fontFamilyStr, fontWeight ) => {
+      if( fontWeight == null ){
+        if ( arr.indexOf(fontFamilyStr) === -1 ){
+            arr.push(fontFamilyStr)
+        }
+      }else {
+        if ( arr.indexOf(fontFamilyStr+':'+fontWeight) === -1 ){
+           arr.push(fontFamilyStr+':'+fontWeight)
+        }
+      }
 
     }
+
+
 
     /***************** modify node text *****************/
     // Function to change the content of svgNodes
@@ -246,18 +288,15 @@
         };
     };
 
+
+
     /***************** load web fonts *****************/
     WebFont.load({
         google: {
-            families: ['Oswald:300', 'Great Vibes', 'Open Sans:800']
+            families: ['Oswald:300', 'Great Vibes', 'Open Sans:800,700']
         },
         active : function( ){
-            // font loaded and rendered
-            let svgTexts = svgLoaded.getElementsByTagName("text");
 
-            for (var i = 0; i < svgTexts.length; i++) {
-                textEditable(svgTexts[i]);
-            }
         }
     });
 })();
