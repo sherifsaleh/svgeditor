@@ -11,17 +11,33 @@
 
     let fontsArray = []; // array to hold fonts names
 
+    /***************** Dom elements *****************/
 
 
-    /***************** DOM elements *****************/
+    // form
     let inputForm = document.getElementById("text-editor");
     let input = document.getElementById('text-editor__input');
-    let svgImg = document.getElementById('svg-image'); // it dose disappear after loading
+
+
+
+
+
 
 
     /********* load svg element to the page *********/
     // full details : https://css-tricks.com/ajaxing-svg-sprite/
+    /*<object id="svg-image" type="image/svg+xml" data="images/FP-Botanical-150x210mm-Recto-01.svg"></object>*/
+    let svgContainer = document.getElementById("svgContainer"); // get SVG Container Div
+    let svgDiv = document.createElement("object"); // Create Object tag
+    // set Attribute
+    svgDiv.setAttribute("id", "svg-image");
+    svgDiv.setAttribute("type", "image/svg+xml");
+    svgDiv.setAttribute("data", "images/FP-Botanical-150x210mm-Recto-01.svg"); // URL
+    svgContainer.appendChild(svgDiv); // Add to the HTML document
+    let svgImg = document.getElementById('svg-image'); // it dose disappear after loading
     svgImg.addEventListener('load', function(event) { svgHandelLoad(event) }, false);
+
+
 
     let svgHandelLoad = function(event) {
 
@@ -46,6 +62,20 @@
             getFontsProperties(svgTexts[i], i);
             textEditable(svgTexts[i]);
         }
+
+
+        /***************** load web fonts *****************/
+        WebFont.load({
+            google: {
+                families: fontsArray
+                //families: ['Open Sans:800,700', 'Great Vibes', 'Oswald:300']
+            },
+            active: function() {
+            }
+        });
+
+
+
 
         // fontsArray = fontsArray.filter( ( item, index, inputArray ) => {
         //    return inputArray.indexOf(item) == index;
@@ -87,7 +117,7 @@
     // to add the ability to make text editable
     let textEditable = (element) => {
         // text attributes
-        let bBox = element.getBBox(); // get coordinates
+        let bBox = element.getBBox(); // get coordinates // getBoundingClientRect() alternative fun
         let matrix = element.getCTM(); // a,b,c,d,e,f
         let fontFamily = element.getAttribute('font-family');
         let fontSize = element.getAttribute('font-size');
@@ -110,10 +140,7 @@
         textdiv.setAttribute("contentEditable", "true");
         textdiv.setAttribute("width", "auto");
 
-
-
-
-        myforeign.setAttribute("width", bBox.width); // set width
+        myforeign.setAttribute("width", bBox.width ); // set width bBox.width
         myforeign.setAttribute("height", bBox.height ); // set width
 
         textdiv.classList.add("insideforeign"); //to make div fit text
@@ -128,8 +155,8 @@
 
         myforeign.classList.add("foreign"); //to make div fit text
         //textdiv.addEventListener("mousedown", elementMousedown, false);
-        myforeign.setAttributeNS(null, "transform", transform);
 
+        myforeign.setAttributeNS(null, "transform", transform);
         myforeign.setAttributeNS(null, "y", bBox.y);
         myforeign.setAttributeNS(null, "x", bBox.x);
 
@@ -150,10 +177,6 @@
        checkInArray(fontsArray, i,fontFamilyStr, fontWeight);
     }
 
-
-    let fontObjArr = [];
-
-    let weightsArr = [];
 
     /***************** check in array *****************/
     let checkInArray = ( arr, i, fontFamilyStr, fontWeight ) => {
@@ -299,14 +322,4 @@
     };
 
 
-
-    /***************** load web fonts *****************/
-    WebFont.load({
-        google: {
-            families: ['Oswald:300', 'Great Vibes', 'Open Sans:800,700']
-        },
-        active : function( ){
-
-        }
-    });
 })();
