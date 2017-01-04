@@ -1,28 +1,14 @@
-(function() {
+
     /***************** variables *****************/
     let svgNodes;
     let svgObj;
     let svgDoc;
     let svgLoaded; // SVG tag of loaded image
-    let textEditState; // is for the curring function of textEdit, first assignment svgNodeClicker, last assignment input submit
-    let textCenterState; // is for the curring function of textCenter, first assignment svgNodeClicker, last assignment input submit
 
     let svgTexts; // SVG texts elements
-
     let fontsArray = []; // array to hold fonts names
-
-    /***************** Dom elements *****************/
-
-
-    // form
-    let inputForm = document.getElementById("text-editor");
-    let input = document.getElementById('text-editor__input');
-
-
-
-
-
-
+    let txtBtn = document.getElementById('add-text-btn');
+    let textEditingState = false;
 
     /********* load svg element to the page *********/
     // full details : https://css-tricks.com/ajaxing-svg-sprite/
@@ -32,7 +18,9 @@
     // set Attribute
     svgDiv.setAttribute("id", "svg-image");
     svgDiv.setAttribute("type", "image/svg+xml");
-    svgDiv.setAttribute("data", "images/FP-Botanical-150x210mm-Recto-01.svg"); // URL
+    //svgDiv.setAttribute("data", "images/FP-Botanical-150x210mm-Recto-01.svg"); // URL
+    //svgDiv.setAttribute("data", "images/FP-Botanical-A5-Verso.svg"); // URL
+    svgDiv.setAttribute("data", "images/std-recto.svg"); // URL
     svgContainer.appendChild(svgDiv); // Add to the HTML document
     let svgImg = document.getElementById('svg-image'); // it dose disappear after loading
     svgImg.addEventListener('load', function(event) { svgHandelLoad(event) }, false);
@@ -50,20 +38,11 @@
         // for texts
         svgTexts = svgLoaded.getElementsByTagName("text");
 
-
-        /***************** click events *****************/
-        // attach event to every node and return a function
-        for (let i = 0; i < svgNodes.length; i++) {
-            // set event listener on each node element
-            svgNodes[i].addEventListener("click", function() { svgNodeClicker(i, svgNodes[i]) }, false);
-        }
-
+        /***************** render text to be editable *****************/
         for (let i = 0; i < svgTexts.length; i++) {
             getFontsProperties(svgTexts[i], i);
             textEditable(svgTexts[i]);
         }
-
-
         /***************** load web fonts *****************/
         WebFont.load({
             google: {
@@ -74,42 +53,45 @@
             }
         });
 
-
-
-
-        // fontsArray = fontsArray.filter( ( item, index, inputArray ) => {
-        //    return inputArray.indexOf(item) == index;
-        // });
-
-
+        /***************** click events on the SVG *****************/
         // attach event to click to add text function
-        //svgLoaded.addEventListener("click", function(event){ addText(event, svgLoaded) }, false);
+        svgLoaded.addEventListener("click", function(event){
+          let el = event.target;
 
-    }
-    /*************** svgNodeClicker ***************/
-    // function called from click events to get the clicked node
-    let svgNodeClicker = (i, svgNode) => {
-
-        // set the input placeholder with the same value of the node text
-        input.value = svgNode.innerHTML;
+          // remove node-active class before assigning to the newly click node
+          let activeNode = svgLoaded.getElementsByClassName("node-active");
+          if (activeNode.length) {
+              activeNode[0].classList.remove("node-active");
+          }
 
 
-        // on editor submit update node with value
-        textEditState = textEdit(svgLoaded)(i);
+          // if not clicked not text tag add new text node
+          if ( el.tagName == 'TEXT'){
+            // add class node-active to element to receive
+            // modification colors and font properties
+            // flash effect to alert active node to the user
+            el.parentNode.classList += ' node-active';
 
-        // check if has Attribute return
-        // if (!svgNode.hasAttribute('text-anchor')) {
-        //     // execute only first time add add attribute of the text-anchor
-        //     textCenterState = textCenter(svgLoaded)(i);
-        // }
+          }else {
+            addText(event, svgLoaded )
+            el.classList.add('node-active');
+          }
+        }, false);
+        /***************** editor panel *****************/
 
-        // if it has the method it is a text ;)
-        // if (svgNode.getComputedTextLength) {
-        //     // node position
-        //     let position = svgNode.getBoundingClientRect();
-        //     let width = svgNode.getComputedTextLength()
-        //     showInputForm(position, width);
-        // }
+        // add fonts families
+        let selectFont = document.getElementById('font-families');
+        for (let font of fontsArray ) {
+          let fontOption = document.createElement("a");
+          fontOption.setAttribute("value", font);
+          fontOption.setAttribute("name", font);
+          fontOption.setAttribute("href", "#");
+          fontOption.setAttribute("class", "list-group-item");
+          fontOption.setAttribute("style", "font-family:" + font  );
+          fontOption.innerHTML= font;
+          selectFont.appendChild( fontOption );
+        }
+
     }
 
     /***************** text editable *****************/
@@ -118,50 +100,34 @@
     let textEditable = (element) => {
         // text attributes
         let bBox = element.getBBox(); // get coordinates // getBoundingClientRect() alternative fun
+        let coordinates = element.getBoundingClientRect(); // get coordinates // getBoundingClientRect() alternative fun
         let matrix = element.getCTM(); // a,b,c,d,e,f
         let fontFamily = element.getAttribute('font-family');
         let fontSize = element.getAttribute('font-size');
         let fontWeight = element.getAttribute('font-weight');
         let fillColor = element.getAttribute('fill');
         let transform = element.getAttribute('transform');
-
         // node creating
         let myforeign = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')
         let textdiv = document.createElement("text");
-        let textnode = document.createTextNode(element.innerHTML);
-
-
-
-
-        textdiv.appendChild(textnode);
-
+        let elementText = element.innerHTML;
+        let decoded = elementText.replace(/&amp;/g, '&');
+        let textnode = document.createTextNode( decoded );
 
         // set Attribute to text
         textdiv.setAttribute("contentEditable", "true");
         textdiv.setAttribute("width", "auto");
-
-        myforeign.setAttribute("width", bBox.width ); // set width bBox.width
-        myforeign.setAttribute("height", bBox.height ); // set width
-
+        textdiv.appendChild(textnode);
+        myforeign.setAttribute("width", "100%" ); // set width bBox.width
+        myforeign.setAttribute("height", "100%" ); // set width
         textdiv.classList.add("insideforeign"); //to make div fit text
-
         // font properties
         myforeign.setAttributeNS(null, "font-size", fontSize);
         myforeign.setAttributeNS(null, "font-family", fontFamily);
         myforeign.setAttributeNS(null, "font-weight", fontWeight);
         if (fillColor) myforeign.setAttributeNS(null, "style", "color:" + fillColor);
-
-
-
         myforeign.classList.add("foreign"); //to make div fit text
-        //textdiv.addEventListener("mousedown", elementMousedown, false);
-
-        myforeign.setAttributeNS(null, "transform", transform);
-        myforeign.setAttributeNS(null, "y", bBox.y);
-        myforeign.setAttributeNS(null, "x", bBox.x);
-
-
-
+        myforeign.setAttributeNS(null, "transform", "translate(" + 0 + " " + coordinates.top + ")");
         element.parentNode.replaceChild(myforeign, element);
         myforeign.appendChild(textdiv);
     }
@@ -195,46 +161,19 @@
     }
 
 
-
-
-
-
-    /***************** modify node text *****************/
-    // Function to change the content of svgNodes
-    // curring because we are gathering elements from two functions
-    // svgNodes clicked and inputSubmit
-    let textEdit =
-        (svg) =>
-        (elementId) =>
-        (inputText) =>
-        svg.childNodes[elementId].innerHTML = inputText;
-
-    /***************** text center *****************/
-    let textCenter =
-        (svg) =>
-        (elementId) => {
-            let node = svg.childNodes[elementId];
-            if (node.getComputedTextLength) {
-                let width = node.getComputedTextLength();
-                let transform = node.getAttribute('transform');
-                node.setAttribute('transform', transform + ' ' + 'translate(' + width / 2 + ')');
-                node.setAttribute('transform', transform + ' ' + 'translate(' + width / 2 + ')');
-                node.setAttribute('text-anchor', 'middle');
-            }
-        }
-    /***************** show text form  *****************/
-    let showInputForm = (position, width) => {
-        // show // add classes
-        inputForm.className += ' animated fadeIn';
-    }
-
     /***************** add text *****************/
     // to check http://jsfiddle.net/brx3xm59/
-    let mousedownonelement = false;
 
-    function elementMousedown(evt) {
-        mousedownonelement = true;
-    }
+    txtBtn.addEventListener('click', (event)=>{
+      event.preventDefault();
+      textEditingState = !textEditingState;
+      if( textEditingState == true ){
+        txtBtn.classList.add("btn-primary");
+      }else {
+        txtBtn.classList.remove("btn-primary");
+      }
+    }, false);
+
 
     // get mouse coordinates on the SVG
     let getLocalMouseCoord = (event, svg) => {
@@ -263,12 +202,11 @@
         myforeign.classList.add("foreign"); //to make div fit text
         myforeign.classList.add("text-left"); //to make div fit text
         textdiv.classList.add("insideforeign"); //to make div fit text
-        textdiv.addEventListener("mousedown", elementMousedown, false);
         myforeign.setAttributeNS(null, "transform", "translate(" + localpoint.x + " " + localpoint.y + ")");
         svg.appendChild(myforeign);
         myforeign.appendChild(textdiv);
 
-    }, 600);
+    }, 100);
 
     // remove if no text entered
     let removeText = () => {
@@ -278,25 +216,14 @@
     // add text function
     let addText = (event, svg) => {
         var localpoint = getLocalMouseCoord(event, svg);
-        if (!mousedownonelement) {
+        if ( textEditingState == true) {
+            // add one text node
             createText(localpoint, svg);
-        } else {
-            mousedownonelement = false;
+            // turn off add text function
+            textEditingState = false;
+            // visual feedback
+            txtBtn.classList.remove("btn-primary");
         }
-    }
-
-
-    /***************** submission *****************/
-    // listen to form submit
-    inputForm.addEventListener("submit", function(event) { inputSubmit(event) }, false);
-
-    let inputSubmit = (evt) => {
-        // prevent submit default action
-        evt.preventDefault();
-        // update svgNode[i] with the input value
-        textEditState(input.value);
-        // center element
-        //textCenterState(input.value);
     }
 
     /***************** debounce *****************/
@@ -320,6 +247,3 @@
             if (callNow) func.apply(context, args);
         };
     };
-
-
-})();

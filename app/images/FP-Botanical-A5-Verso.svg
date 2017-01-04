@@ -2721,7 +2721,7 @@ AAAAAAAAAAAAAAAAAAAAAAAP/9k=" transform="matrix(0.36 0 0 0.36 -2.830000e-02 5.10
 <path id="g2" fill="#3990B8" d="M425.6,595.6H28V28h397.6V595.6z M28.7,594.9h396.1V28.7H28.7V594.9z"/>
 <text id="t16" transform="matrix(1 0 0 1 162.9285 550.8182)" font-family="'Julius Sans One'" font-size="11">13090 aix en provence</text>
 <text id="t15" transform="matrix(1 0 0 1 172.5044 537.8182)" font-family="'Julius Sans One'" font-size="11">10, route de galice</text>
-<text id="t14" transform="matrix(1 0 0 1 132.6785 525.1683)" fill="#3990B8" font-family="'Cinzel Decorative'" font-size="11">eleonore nom &amp; aristide nom</text>
+<text id="t14" transform="matrix(1 0 0 1 132.6785 525.1683)" fill="#3990B8" font-family="'Cinzel Decorative'" font-size="11">eleonore nom &#38; aristide nom</text>
 <text id="t13" transform="matrix(1 0 0 1 160.0342 433.2997)" font-family="'Julius Sans One'" font-size="12">de beaumont (95000)</text>
 <text id="t12" transform="matrix(1 0 0 1 142.635 419.2997)" font-family="'Julius Sans One'" font-size="12">d’un cocktail au domaine</text>
 <text id="t11" transform="matrix(1 0 0 1 131.0134 404.2997)" font-family="'Julius Sans One'" font-size="12">la cérémonie civile sera suivie</text>
@@ -2731,7 +2731,7 @@ AAAAAAAAAAAAAAAAAAAAAAAP/9k=" transform="matrix(0.36 0 0 0.36 -2.830000e-02 5.10
 <text id="t7" transform="matrix(1 0 0 1 167.9487 253.8788)" font-family="'Julius Sans One'" font-size="12">de leur mariage le</text>
 <text id="t6" transform="matrix(1 0 0 1 131.3735 239.1688)" font-family="'Julius Sans One'" font-size="12">ont la joie de vous faire part</text>
 <text id="t5" transform="matrix(1 0 0 1 179.164 201.1678)" fill="#F6BCD0" font-family="'Cinzel Decorative'" font-size="21">aristide</text>
-<text id="t4" transform="matrix(1 0 0 1 218.7641 169.1678)" fill="#F6BCD0" font-family="'Cinzel Decorative'" font-size="14">&amp;</text>
+<text id="t4" transform="matrix(1 0 0 1 218.7641 169.1678)" fill="#F6BCD0" font-family="'Cinzel Decorative'" font-size="14">&#38;</text>
 <text id="t3" transform="matrix(1 0 0 1 168.9489 142.1688)" fill="#F6BCD0" font-family="'Cinzel Decorative'" font-size="21">eleonore</text>
 <text id="t2" transform="matrix(1 0 0 1 165.9926 96.1688)" font-family="'Julius Sans One'" font-size="12">Avec leurs parents,</text>
 </svg>

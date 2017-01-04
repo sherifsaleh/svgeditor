@@ -4,7 +4,6 @@ $icon-font-path: '../fonts/';
 //@import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 
 // bower:scss
-@import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
 .browserupgrade {
@@ -12,24 +11,67 @@ $icon-font-path: '../fonts/';
   background: #ccc;
   color: #000;
   padding: 0.2em 0;
+
 }
 
 svg {
   max-width: 100%;
   height: auto;
 }
-.text-editor {
-  position: absolute;
-  z-index: 100;
-  opacity: 0;
+
+.node-active {
+  -webkit-animation-duration: 750ms;
+  animation-duration: 750ms;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+
+  -webkit-animation-name: flash;
+  animation-name: flash;
+
 }
 
+.font-serif {
+  font-family: $font-family-serif;
+}
 .foreign {
-  background-color: rgba(200, 15, 75, .5);
+  //background-color: rgba(200, 15, 75, .5);
 }
 
 
+@-webkit-keyframes flash {
+  0%{
+    opacity: .5;
+  }
+  100%{
+    opacity: 1;
+  }
+}
 
+@keyframes flash {
+
+  0%{
+    opacity: .5;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+.flash {
+  -webkit-animation-name: flash;
+  animation-name: flash;
+}
+
+
+.padding-v--1 {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.padding-v--2 {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
