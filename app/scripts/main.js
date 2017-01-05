@@ -35,6 +35,8 @@ let svgHandelLoad = function(event) {
     svgObj.parentNode.replaceChild(svgLoaded, svgObj);
     svgNodes = svgLoaded.childNodes;
 
+    let activeNode = svgLoaded.getElementsByClassName("node-active");
+
 
     // for texts
     svgTexts = svgLoaded.getElementsByTagName("text");
@@ -94,7 +96,7 @@ let svgHandelLoad = function(event) {
     /***************** editor panel *****************/
 
     // add fonts families
-    let selectFont = document.getElementById('font-families');
+    let selectFontDiv = document.getElementById('font-families');
     for (let font of fontsArray) {
         let fontOption = document.createElement("a");
         fontOption.setAttribute("value", font);
@@ -103,8 +105,20 @@ let svgHandelLoad = function(event) {
         fontOption.setAttribute("class", "list-group-item");
         fontOption.setAttribute("style", "font-family:" + font);
         fontOption.innerHTML = font;
-        selectFont.appendChild(fontOption);
+        selectFontDiv.appendChild(fontOption);
     }
+    selectFontDiv.addEventListener('click', (event)=>{ assignFontFamily(event) }, false)
+    let assignFontFamily = (event)=> {
+        event.preventDefault();
+
+        let element = event.target;
+        let fontValue = element.getAttribute('value');
+
+        if( activeNode.length ){
+            if (activeNode[0].tagName == 'foreignObject') {
+                activeNode[0].setAttributeNS(null, 'font-family', ''+fontValue+'' );
+            }
+        }    }
 
 }
 
