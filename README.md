@@ -1,13 +1,8 @@
 # SVG EDITOR script
 SvgEditor script is the revival of old project.
-[alt text]
 
 ![alt text](https://raw.githubusercontent.com/sherifsaleh/svgeditor/master/app/images/save-the-date.gif "example")
 
-
-![alt text][logo]
-
-[logo]: https://raw.githubusercontent.com/sherifsaleh/svgeditor/master/app/images/save-the-date.gif"example"
 
 
 
