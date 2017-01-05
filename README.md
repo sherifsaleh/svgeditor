@@ -1,6 +1,15 @@
 # SVG EDITOR script
 SvgEditor script is the revival of old project.
-[alt text](https://raw.githubusercontent.com/sherifsaleh/svgeditor/master/app/images/save-the-date.gif "Invitations example")
+[alt text]
+
+![alt text](https://raw.githubusercontent.com/sherifsaleh/svgeditor/master/app/images/save-the-date.gif "example")
+
+
+![alt text][logo]
+
+[logo]: https://raw.githubusercontent.com/sherifsaleh/svgeditor/master/app/images/save-the-date.gif"example"
+
+
 
 ## Objective
 Editing online SVG image such as ( Flyers, Invitations, Business Cards ... )
