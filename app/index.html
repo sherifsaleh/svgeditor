@@ -29,22 +29,34 @@
         <aside class="col-lg-4">
           <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading">Select font : </div>
+            <header class="panel-heading">
+                <h3>Styling Panel</h3>
+            </header>
             <div class="panel-body">
+
+
+              <div class="form-group">
+                <label for="">Pick a color:</label>
+                <input type="color" name="colorPicker" id="colorPicker" class="form-control" value="#663399"  title="Color Picker">
+              </div>
+
+
+              <label for="">Font style:</label>
               <button class="btn btn-default font-serif"><strong>B</strong></button>
               <button class="btn btn-default font-serif"><em>I</em></button>
               <button class="btn btn-default font-serif" id="add-text-btn"><span>𝙸</span> add text</button>
+
+
             </div>
 
             <!-- List group -->
             <div class="list-group" id="font-families">
             </div>
             <!-- List group -->
-            <div id="colors">
-              <a href="#" class="btn" value="red">red</a>
-              <a href="#" class="btn" value="green">green</a>
-              <a href="#" class="btn" value="yellow">yellow</a>
-            </div>
+
+
+
+
           </div>
         </aside>
       </div>
