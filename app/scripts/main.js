@@ -139,12 +139,14 @@ let textEditable = (element) => {
     let fontWeight = element.getAttribute('font-weight');
     let fillColor = element.getAttribute('fill');
     let transform = element.getAttribute('transform');
+
     // node creating
     let myforeign = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')
     let textdiv = document.createElement("text");
     let elementText = element.innerHTML;
     let decoded = elementText.replace(/&amp;/g, '&');
     let textnode = document.createTextNode(decoded);
+
 
     // set Attribute to text
     textdiv.setAttribute("contentEditable", "true");
@@ -158,8 +160,8 @@ let textEditable = (element) => {
     myforeign.setAttributeNS(null, "font-family", fontFamily);
     myforeign.setAttributeNS(null, "font-weight", fontWeight);
     if (fillColor) myforeign.setAttributeNS(null, "style", "color:" + fillColor);
-    myforeign.classList.add("foreign"); //to make div fit text
-    myforeign.setAttributeNS(null, "transform", "translate(" + 0 + " " + coordinates.top + ")");
+    myforeign.classList.add("foreign"); //to make div fit text        matrix.f = top
+    myforeign.setAttributeNS(null, "transform", "translate(" + 0 + " " + matrix.f + ")");
     element.parentNode.replaceChild(myforeign, element);
     myforeign.appendChild(textdiv);
 }
