@@ -26,7 +26,6 @@ let svgImg = document.getElementById('svg-image'); // it dose disappear after lo
 svgImg.addEventListener('load', function(event) { svgHandelLoad(event) }, false);
 
 
-
 let svgHandelLoad = function(event) {
 
     svgObj = event.currentTarget;
@@ -99,12 +98,17 @@ let svgHandelLoad = function(event) {
     let selectFontDiv = document.getElementById('font-families');
     for (let font of fontsArray) {
         let fontOption = document.createElement("a");
-        fontOption.setAttribute("value", font);
-        fontOption.setAttribute("name", font);
+        let withNoDigits = font.replace(/[0-9]/g, '');
+        let fontName = withNoDigits.replace(':', '');
+
+        fontOption.setAttribute("value", fontName);
+        fontOption.setAttribute("name", fontName);
         fontOption.setAttribute("href", "#");
         fontOption.setAttribute("class", "list-group-item");
-        fontOption.setAttribute("style", "font-family:" + font);
-        fontOption.innerHTML = font;
+        fontOption.setAttribute("style", "font-family:" + fontName);
+
+
+        fontOption.innerHTML = fontName;
         selectFontDiv.appendChild(fontOption);
     }
     selectFontDiv.addEventListener('click', (event)=>{ assignFontFamily(event) }, false)
