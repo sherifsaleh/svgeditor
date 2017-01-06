@@ -108,7 +108,7 @@ let svgHandelLoad = function(event) {
         fontOption.setAttribute("style", "font-family:" + fontName);
 
 
-        fontOption.innerHTML = fontName;
+        fontOption.innerHTML = ''+fontName+'';
         selectFontDiv.appendChild(fontOption);
     }
     selectFontDiv.addEventListener('click', (event)=>{ assignFontFamily(event) }, false)
