@@ -12,14 +12,20 @@ This time i decided to re-code this project in pure Javascript. and i was really
 
 ## Functions
 This is a work in progress, in a very early stage. some functions needs to debugged, enhanced and some others need to be added here is the list of add functions : 
-  - Dynamic font loading from Google webFonts, using the webFonts script
-  - Render SVG text as editable
-  - Add SVG Text 
-  - Change element colors
-  - Change Text font family
 
-What needs to be added in progress : 
-  - Text drag to change location
-  - LocalStroage
-  - Downloading the final Artwork as PDF or SVG image
-  - uploading images
+    - Dynamic font loading from Google webFonts, using the webFonts script
+    - Render SVG text as editable
+    - Add SVG Text 
+    - Change element colors
+    - Change Text font family
+
+## What needs to be added in progress : 
+    - LocalStroage
+    - Downloading the final Artwork as PDF or SVG image
+    - uploading images
+
+## problematics 
+    - Text drag to change location
+    - Font naming from export SVG
+    - Saving after done editing
+

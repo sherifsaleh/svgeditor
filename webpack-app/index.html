@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test</title>
+  <link rel="stylesheet" href="styles/paper.css">
+</head>
+<body>
+  <div class="container padding-v--1">
+    <div class="row">
+      <main class="col-lg-8 text-center" id="svgContainer">
+      </main>
+      <aside class="col-lg-4">
+        <div class="panel panel-default">
+          <!-- Default panel contents -->
+          <header class="panel-heading">
+              <h3>Customize your Card</h3>
+          </header>
+          <div class="panel-body">
+
+            <label>Choose a font:</label>
+            <!-- List group -->
+            <div class="list-group" id="font-families">
+            </div>
+            <!-- List group -->
+
+            <hr>
+
+            <div class="form-group">
+              <label for="">Pick a color:</label>
+              <input type="color" name="colorPicker" id="colorPicker" class="form-control" value="#663399"  title="Color Picker">
+            </div>
+
+
+            <hr>
+            <div class="form-group">
+              <label for="">Text align:</label>
+              <button class="btn btn-large btn-default" id="text-left"><em class="font-mono">left</em></button>
+              <button class="btn btn-large btn-default" id="text-center"><em class="font-mono">Center</em></button>
+              <button class="btn btn-large btn-default" id="text-right"><em class="font-mono">Right</em></button>
+            </div>
+
+
+            <hr>
+            <div class="form-group">
+              <label for="">Add your text:</label>
+              <button class="btn btn-large btn-block btn-default" id="add-text-btn"><span class="font-mono">𝙸</span> Add new text line </button>
+            </div>
+
+
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+  <script src="bundle.js"></script>
+</body>
+</html>
