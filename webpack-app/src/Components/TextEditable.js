@@ -11,7 +11,7 @@ let TextEditable = (element, i) => {
 
     /***************** different ways to get text location  *****************/
     let bBox = element.getBBox(); // get coordinates // getBoundingClientRect() alternative fun
-    let matrix = element.getCTM(); // a,b,c,d,e,f
+    //let matrix = element.getCTM(); // a,b,c,d,e,f
     //let coordinates = element.getBoundingClientRect(); // get coordinates // getBoundingClientRect() alternative fun
     let objTransform = element.getAttribute('transform');
     //let objClean =  objTransform.replace(/[a-zA-Z]+|[\(]+|[\)]+/g,'').replace(/(\.\d+)+/,'').replace(/(\.\d+)+/,'');

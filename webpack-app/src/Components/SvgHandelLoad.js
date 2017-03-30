@@ -1,7 +1,7 @@
 import * as Config from './Config';
 import TextEditable from './TextEditable';
 import FontsProperties from './FontsProperties';
-import DragDrop from './DragDrop';
+import * as DragDrop from './DragDrop';
 import * as ColorPicking from './ColorPicking';
 import * as TextAdding from './TextAdding';
 
@@ -64,7 +64,7 @@ let SvgHandelLoad = function(event) {
 
 
     svgLoaded.addEventListener('dragstart',function(event){
-      DragDrop.drag_start();
+      DragDrop.drag_start(event);
     },false);
 
     /***************** editor panel *****************/
