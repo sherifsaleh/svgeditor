@@ -28,7 +28,7 @@ let TextEditable = (element, i) => {
 
     //console.log( element.getBoundingClientRect().width  );
     // set Attribute to text
-    textdiv.setAttribute('contentEditable', 'false');
+    textdiv.setAttribute('contentEditable', 'true');
     textdiv.setAttribute('draggable', 'true');
     textdiv.setAttribute('width', 'auto');
     textdiv.appendChild(textnode);

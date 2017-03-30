@@ -7,7 +7,6 @@ export function drag_start(event) {
     dragData = event;
     //console.log('before: ', event);
 
-
     event.dataTransfer.setData("text/plain", event.target.id);
     //event.setData('text', 'foo');
 
@@ -39,9 +38,6 @@ function drop(event) {
     let xNewValue = matrix.e - ( dragData.x - dropData.x ); // -  - matrix.e ;
     let yNewValue = matrix.f - (  dragData.y - dropData.y ) ;
     //console.log('after: ', event);
-
-
-    console.log( xNewValue, dragData.x, dropData.x );
 
 
 
