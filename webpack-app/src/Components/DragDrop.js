@@ -37,7 +37,7 @@ function drop(event) {
 
     let matrix = activeNode.getCTM();
     let xNewValue = matrix.e - ( dragData.x - dropData.x ); // -  - matrix.e ;
-    let yNewValue = dropData.y - dragData.y;
+    let yNewValue = matrix.f - (  dragData.y - dropData.y ) ;
     //console.log('after: ', event);
 
 
@@ -48,7 +48,7 @@ function drop(event) {
 
 
     //activeNode.setAttributeNS(null, 'transform', event.x);
-    activeNode.setAttributeNS(null, 'transform', 'translate(' +   xNewValue  + ' ' + 184 + ')');
+    activeNode.setAttributeNS(null, 'transform', 'translate(' +   xNewValue  + ' ' + yNewValue + ')');
 
 
     // let activeNode = svgLoaded.getElementsByClassName('node-active');
