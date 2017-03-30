@@ -2,3 +2,10 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+
+text:focus{
+  //border-bottom: 1px dashed #fff;
+  outline-style: dashed;
+  outline-width: 1px;
+  outline-color: #000;
+}

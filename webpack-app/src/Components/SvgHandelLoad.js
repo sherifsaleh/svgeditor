@@ -63,14 +63,16 @@ let SvgHandelLoad = function(event) {
     }
 
 
-    svgLoaded.addEventListener('dragstart',DragDrop.drag_start,false);
+    svgLoaded.addEventListener('dragstart',function(event){
+      DragDrop.drag_start();
+    },false);
 
     /***************** editor panel *****************/
     // add fonts families
     let selectFontDiv = document.getElementById('font-families');
     for (let font of Config.fontsArray) {
         let fontOption = document.createElement('a');
-        let withNoDigits = font.replace(/[0-9]/g, '');
+        let withNoDigits = font.replace(/[0-9]/g, '').replace(/,/g , "");
         let fontName = withNoDigits.replace(':', '');
 
         fontOption.setAttribute('value', fontName);

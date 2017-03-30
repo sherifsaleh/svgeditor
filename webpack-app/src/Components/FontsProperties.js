@@ -2,10 +2,10 @@ import * as Config from './Config';
 /***************** fonts name *****************/
 let FontsProperties = (element, i) => {
     let fontFamily = element.getAttribute('font-family');
-    // remove single quote from the font name
+    // remove single quote from the font name and comma
+
     let fontFamilyStr = fontFamily.replace(/'/g, '');
     let fontWeight = element.getAttribute('font-weight');
-
 
     checkInArray(Config.fontsArray, i, fontFamilyStr, fontWeight);
 }
